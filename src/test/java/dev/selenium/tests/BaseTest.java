@@ -22,6 +22,7 @@ public class BaseTest {
         prefs.put("profile.password_manager_leak_detection", false);
 
         options.setExperimentalOption("prefs", prefs);
+//        options.addArguments("--headless");
 
         driver = new ChromeDriver(options);
         driver.get("http://localhost:3000");
@@ -29,6 +30,8 @@ public class BaseTest {
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

@@ -28,7 +28,15 @@ public class ElementUtils extends BasePage {
             wait.until(ExpectedConditions.visibilityOf(element));
             return true;
         } catch (Exception e) {
-            log.error("error: ", e);
+            return false;
+        }
+    }
+
+    public static boolean isTextPresent(WebElement element, String text) {
+        try {
+            wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+            return true;
+        } catch (Exception e) {
             return false;
         }
     }
@@ -37,6 +45,16 @@ public class ElementUtils extends BasePage {
         try {
             wait.until(ExpectedConditions.elementToBeClickable(element));
             element.click();
+        } catch (Exception e) {
+            log.error("error: ", e);
+        }
+    }
+
+    // TODO remove this one if not used
+    public static void sendKeysWhenReady(WebElement element, String text) {
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+            element.sendKeys(text);
         } catch (Exception e) {
             log.error("error: ", e);
         }
