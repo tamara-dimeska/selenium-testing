@@ -4,7 +4,6 @@ import dev.selenium.utils.BaseElement;
 import dev.selenium.utils.User;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
     @FindBy(css = "[data-test='login-button']")
@@ -18,8 +17,6 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        // Initialize all @FindBy fields
-        PageFactory.initElements(driver, this);
     }
 
     public BasePage login(User user) {

@@ -3,7 +3,6 @@ package dev.selenium.pageobjects;
 import dev.selenium.utils.BaseElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class CartNavBar extends BasePage {
     @FindBy(css = "[data-test='shopping-cart-icon']")
@@ -13,7 +12,6 @@ public class CartNavBar extends BasePage {
 
     public CartNavBar(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver, this);
     }
 
     public ShoppingCartPage openShoppingCart() {
