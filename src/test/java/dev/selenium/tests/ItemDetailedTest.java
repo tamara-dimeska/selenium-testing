@@ -1,6 +1,7 @@
 package dev.selenium.tests;
 
 import dev.selenium.pageobjects.*;
+import dev.selenium.utils.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,8 @@ public class ItemDetailedTest extends BaseTest {
 
     @BeforeEach
     public void loginAndOpenItem() {
-        homePage = (HomePage) new LoginPage(driver).login("standard_user", "secret_sauce");
+        User user = new User("standard_user", System.getenv("USER_PASSWORD"));
+        homePage = (HomePage) new LoginPage(driver).login(user);
         itemPage = homePage.openItem("Backpack");
     }
 

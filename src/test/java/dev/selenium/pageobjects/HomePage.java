@@ -1,6 +1,6 @@
 package dev.selenium.pageobjects;
 
-import dev.selenium.utils.ElementUtils;
+import dev.selenium.utils.BaseElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,15 +9,15 @@ import org.openqa.selenium.support.PageFactory;
 
 public class HomePage extends BasePage {
     @FindBy(css = "[data-test='title']")
-    WebElement title;
+    BaseElement title;
     @FindBy(xpath = "//*[text()='Open Menu']")
-    WebElement menuButton;
+    BaseElement menuButton;
     @FindBy(css = "[data-test='logout-sidebar-link']")
-    WebElement logoutButton;
+    BaseElement logoutButton;
     @FindBy(css = "[data-test='add-to-cart-sauce-labs-backpack']")
-    WebElement addBackpackToCartButton;
+    BaseElement addBackpackToCartButton;
     @FindBy(css = "[data-test='remove-sauce-labs-backpack']")
-    WebElement removeBackpackToCartButton;
+    BaseElement removeBackpackToCartButton;
 
     public HomePage(WebDriver driver) {
         super(driver);
@@ -26,31 +26,31 @@ public class HomePage extends BasePage {
 
     public LoginPage logout() {
         menuButton.click();
-        ElementUtils.clickWhenReady(logoutButton);
+        logoutButton.click();
 
         return new LoginPage(driver);
     }
 
     public boolean isTitleDisplayed() {
-        return ElementUtils.isElementDisplayed(title);
+        return title.isDisplayed();
     }
 
     public ItemPage openItem(String itemLabel) {
         WebElement item = driver.findElement(By.xpath("//*[contains(text(), '" + itemLabel + "')]"));
 
-        ElementUtils.clickWhenReady(item);
+        item.click();
 
         return new ItemPage(driver);
     }
 
     public HomePage addBackpackToCart() {
-        ElementUtils.clickWhenReady(addBackpackToCartButton);
+        addBackpackToCartButton.click();
 
         return this;
     }
 
     public HomePage removeBackpackToCart() {
-        ElementUtils.clickWhenReady(removeBackpackToCartButton);
+        removeBackpackToCartButton.click();
 
         return this;
     }

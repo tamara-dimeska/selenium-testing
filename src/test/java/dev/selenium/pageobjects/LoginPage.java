@@ -1,21 +1,20 @@
 package dev.selenium.pageobjects;
 
-import dev.selenium.utils.ElementUtils;
+import dev.selenium.utils.BaseElement;
+import dev.selenium.utils.User;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage extends BasePage {
-    // TODO make the By.cssSelector more generic
     @FindBy(css = "[data-test='login-button']")
-    WebElement loginButton;
+    BaseElement loginButton;
     @FindBy(css = "[data-test='username']")
-    WebElement usernameField;
+    BaseElement usernameField;
     @FindBy(css = "[data-test='password']")
-    WebElement passwordField;
+    BaseElement passwordField;
     @FindBy(css = "[data-test='error']")
-    WebElement errorMessage;
+    BaseElement errorMessage;
 
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -23,13 +22,12 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
-    public BasePage login(String username, String password) {
-        // TODO create user class/interface
-        usernameField.sendKeys(username);
-        passwordField.sendKeys(password);
+    public BasePage login(User user) {
+        usernameField.sendKeys(user.username());
+        passwordField.sendKeys(user.password());
         loginButton.click();
 
-        if (ElementUtils.isElementNotDisplayed(loginButton)) {
+        if (loginButton.isNotDisplayed()) {
             return new HomePage(driver);
         } else {
             return this;
@@ -37,10 +35,10 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isLoginButtonDisplayed() {
-       return ElementUtils.isElementDisplayed(loginButton);
+       return loginButton.isDisplayed();
     }
 
     public boolean isErrorMessageDisplayed() {
-        return ElementUtils.isElementDisplayed(errorMessage);
+        return errorMessage.isDisplayed();
     }
 }

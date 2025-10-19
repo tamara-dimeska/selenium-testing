@@ -1,30 +1,29 @@
 package dev.selenium.pageobjects;
 
-import dev.selenium.utils.ElementUtils;
+import dev.selenium.utils.BaseElement;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CheckoutPage extends BasePage {
     @FindBy(css = "[data-test='error']")
-    WebElement error;
+    BaseElement error;
     @FindBy(xpath = "//*[text()='Thank you for your order!']")
-    WebElement title;
+    BaseElement title;
     @FindBy(css = "[data-test='firstName']")
-    WebElement firstNameField;
+    BaseElement firstNameField;
     @FindBy(css = "[data-test='lastName']")
-    WebElement lastNameField;
+    BaseElement lastNameField;
     @FindBy(css = "[data-test='postalCode']")
-    WebElement postCodeField;
+    BaseElement postCodeField;
     @FindBy(css = "[data-test='continue']")
-    WebElement continueButton;
+    BaseElement continueButton;
     @FindBy(css = "[data-test='cancel']")
-    WebElement cancelButton;
+    BaseElement cancelButton;
     @FindBy(css = "[data-test='finish']")
-    WebElement finishButton;
+    BaseElement finishButton;
     @FindBy(css = "[data-test='back-to-products']")
-    WebElement backButton;
+    BaseElement backButton;
 
     public CheckoutPage(WebDriver driver) {
         super(driver);
@@ -68,22 +67,22 @@ public class CheckoutPage extends BasePage {
     }
 
     public CheckoutPage clickFinishButton() {
-        ElementUtils.clickWhenReady(finishButton);
+        finishButton.click();
 
         return this;
     }
 
     public CheckoutPage clickBackButton() {
-        ElementUtils.clickWhenReady(backButton);
+        backButton.click();
 
         return this;
     }
 
     public boolean isTitleDisplayed() {
-        return ElementUtils.isElementDisplayed(title);
+        return title.isDisplayed();
     }
 
     public boolean isErrorMessageDisplayed(String text) {
-        return ElementUtils.isTextPresent(error, text);
+        return error.isTextPresent(text);
     }
 }

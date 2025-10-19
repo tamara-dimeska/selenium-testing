@@ -1,20 +1,19 @@
 package dev.selenium.pageobjects;
 
-import dev.selenium.utils.ElementUtils;
+import dev.selenium.utils.BaseElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ItemPage extends BasePage {
     @FindBy(css = "[data-test='back-to-products']")
-    WebElement backButton;
+    BaseElement backButton;
     @FindBy(css = "[data-test='add-to-cart-sauce-labs-backpack']")
-    WebElement addBackpackToCartButton;
+    BaseElement addBackpackToCartButton;
     @FindBy(css = "[data-test='remove-sauce-labs-backpack']")
-    WebElement removeBackpackToCartButton;
+    BaseElement removeBackpackToCartButton;
 
     public ItemPage(WebDriver driver) {
         super(driver);
@@ -32,13 +31,13 @@ public class ItemPage extends BasePage {
     }
 
     public ItemPage addBackpackToCart() {
-        ElementUtils.clickWhenReady(addBackpackToCartButton);
+        addBackpackToCartButton.click();
 
         return this;
     }
 
     public ItemPage removeBackpackToCart() {
-        ElementUtils.clickWhenReady(removeBackpackToCartButton);
+        removeBackpackToCartButton.click();
 
         return this;
     }

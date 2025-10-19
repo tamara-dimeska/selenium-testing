@@ -1,6 +1,10 @@
 package dev.selenium.tests;
 
-import dev.selenium.pageobjects.*;
+import dev.selenium.pageobjects.CartNavBar;
+import dev.selenium.pageobjects.HomePage;
+import dev.selenium.pageobjects.LoginPage;
+import dev.selenium.pageobjects.ShoppingCartPage;
+import dev.selenium.utils.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +19,9 @@ public class CartTests extends BaseTest {
     @BeforeEach
     public void loginAndOpenShoppingCart() {
         cartNavBar = new CartNavBar(driver);
+        User user = new User("standard_user", System.getenv("USER_PASSWORD"));
 
-        homePage = (HomePage) new LoginPage(driver).login("standard_user", "secret_sauce");
+        homePage = (HomePage) new LoginPage(driver).login(user);
         homePage = homePage.addBackpackToCart();
         shoppingCartPage = cartNavBar.openShoppingCart();
     }
@@ -34,6 +39,5 @@ public class CartTests extends BaseTest {
 
         assertTrue(homePage.isTitleDisplayed(), "User is not on the home page.");
         assertFalse(shoppingCartPage.isTitleDisplayed(), "The user is still on shopping cart page.");
-
     }
 }

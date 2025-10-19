@@ -1,24 +1,23 @@
 package dev.selenium.pageobjects;
 
-import dev.selenium.utils.ElementUtils;
+import dev.selenium.utils.BaseElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ShoppingCartPage extends BasePage {
     @FindBy(xpath = "//*[text()='Your Cart']")
-    WebElement title;
+    BaseElement title;
     @FindBy(css = "[data-test='add-to-cart-sauce-labs-backpack']")
-    WebElement addBackpackToCartButton;
+    BaseElement addBackpackToCartButton;
     @FindBy(css = "[data-test='remove-sauce-labs-backpack']")
-    WebElement removeBackpackToCartButton;
+    BaseElement removeBackpackToCartButton;
     @FindBy(css = "[data-test='checkout']")
-    WebElement checkoutButton;
+    BaseElement checkoutButton;
     @FindBy(css = "[data-test='continue-shopping']")
-    WebElement continueShoppingButton;
+    BaseElement continueShoppingButton;
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
@@ -36,29 +35,29 @@ public class ShoppingCartPage extends BasePage {
     }
 
     public ShoppingCartPage addBackpackToCart() {
-        ElementUtils.clickWhenReady(addBackpackToCartButton);
+        addBackpackToCartButton.click();
 
         return this;
     }
 
     public ShoppingCartPage removeBackpackToCart() {
-        ElementUtils.clickWhenReady(removeBackpackToCartButton);
+        removeBackpackToCartButton.click();
 
         return this;
     }
 
     public CheckoutPage openCheckout() {
-        ElementUtils.clickWhenReady(checkoutButton);
+        checkoutButton.click();
 
         return new CheckoutPage(driver);
     }
 
     public boolean isTitleDisplayed() {
-        return ElementUtils.isElementDisplayed(title);
+        return title.isDisplayed();
     }
 
     public HomePage clickContinueShopping() {
-        ElementUtils.clickWhenReady(continueShoppingButton);
+        continueShoppingButton.click();
 
         return new HomePage(driver);
     }

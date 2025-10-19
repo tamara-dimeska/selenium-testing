@@ -1,16 +1,15 @@
 package dev.selenium.pageobjects;
 
-import dev.selenium.utils.ElementUtils;
+import dev.selenium.utils.BaseElement;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class CartNavBar extends BasePage {
     @FindBy(css = "[data-test='shopping-cart-icon']")
-    WebElement shoppingCartIcon;
+    BaseElement shoppingCartIcon;
     @FindBy(css = "[data-test='items-in-cart']")
-    WebElement itemsInCartLabel;
+    BaseElement itemsInCartLabel;
 
     public CartNavBar(WebDriver driver) {
         super(driver);
@@ -18,16 +17,16 @@ public class CartNavBar extends BasePage {
     }
 
     public ShoppingCartPage openShoppingCart() {
-        ElementUtils.clickWhenReady(shoppingCartIcon);
+        shoppingCartIcon.click();
 
         return new ShoppingCartPage(driver);
     }
 
     public boolean isTextDisplayedInCartIcon(String itemNo) {
-        return ElementUtils.isTextPresent(itemsInCartLabel, itemNo);
+        return itemsInCartLabel.isTextPresent(itemNo);
     }
 
     public boolean isItemsInCartDisplayed() {
-        return ElementUtils.isElementDisplayed(itemsInCartLabel);
+        return itemsInCartLabel.isDisplayed();
     }
 }

@@ -2,6 +2,7 @@ package dev.selenium.tests;
 
 import dev.selenium.pageobjects.HomePage;
 import dev.selenium.pageobjects.LoginPage;
+import dev.selenium.utils.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -13,8 +14,8 @@ public class LoginTests extends BaseTest {
     @Test
     public void testUserCanLoginAndLogout() {
         loginPage = new LoginPage(driver);
-        // TODO create user class/interface
-        homePage = (HomePage) loginPage.login("standard_user", "secret_sauce");
+        User user = new User("standard_user", System.getenv("USER_PASSWORD"));
+        homePage = (HomePage) loginPage.login(user);
 
         assertTrue(homePage.isTitleDisplayed(), "Home page title is not displayed. The user is not logged in.");
 
@@ -25,8 +26,9 @@ public class LoginTests extends BaseTest {
 
     @Test
     public void testUserCannotLoginWithIncorrectData() {
+        User user = new User("standard_user", "111");
         loginPage = (LoginPage) new LoginPage(driver)
-                .login("standard_user", "111");
+                .login(user);
 
         assertTrue(loginPage.isLoginButtonDisplayed(), "Login button is not displayed. The user is logged in.");
         assertTrue(loginPage.isErrorMessageDisplayed(), "No error message is displayed.");

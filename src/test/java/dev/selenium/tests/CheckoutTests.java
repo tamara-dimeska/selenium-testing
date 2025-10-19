@@ -1,6 +1,7 @@
 package dev.selenium.tests;
 
 import dev.selenium.pageobjects.*;
+import dev.selenium.utils.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,8 +16,9 @@ public class CheckoutTests extends BaseTest{
     @BeforeEach
     public void loginAndOpenShoppingCart() {
         cartNavBar = new CartNavBar(driver);
+        User user = new User("standard_user", System.getenv("USER_PASSWORD"));
 
-        homePage = (HomePage) new LoginPage(driver).login("standard_user", "secret_sauce");
+        homePage = (HomePage) new LoginPage(driver).login(user);
         homePage = homePage.addBackpackToCart();
         checkoutPage = cartNavBar.openShoppingCart().openCheckout();
     }
