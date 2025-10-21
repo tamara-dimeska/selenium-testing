@@ -15,7 +15,7 @@ public class BaseElement {
     public BaseElement(WebDriver driver, WebElement element) {
         this.driver = driver;
         this.element = element;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(2));
     }
 
     public void click() {

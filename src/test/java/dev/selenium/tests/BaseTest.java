@@ -1,7 +1,9 @@
 package dev.selenium.tests;
 
+import dev.selenium.utils.Screenshot;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInfo;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -29,7 +31,16 @@ public class BaseTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    public void tearDown(TestInfo testInfo) {
+        if (testInfo.getTestMethod().isPresent()) {
+            try {
+                Screenshot.takeScreenshot(driver, testInfo.getTestMethod().get().getName());
+            }
+            catch (Exception e) {
+                System.out.println("Failed to take screenshot: " + e.getMessage());
+            }
+        }
+
         if (driver != null) {
             driver.quit();
         }
