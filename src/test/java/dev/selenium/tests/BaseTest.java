@@ -24,7 +24,8 @@ public class BaseTest {
         prefs.put("profile.password_manager_leak_detection", false);
 
         options.setExperimentalOption("prefs", prefs);
-//        options.addArguments("--headless");
+        options.addArguments("--headless");
+        options.addArguments("--window-size=1920,1080");
 
         driver = new ChromeDriver(options);
         driver.get("http://localhost:3000");
