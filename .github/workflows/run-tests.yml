@@ -1,0 +1,58 @@
+name: Run tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+      - name: Checkout selenium tests repo
+        uses: actions/checkout@v4
+
+      - name: Checkout source code repo
+        uses: actions/checkout@v4
+        with:
+          repository: tamara-dimeska/sample-app-web
+          ref: main
+          path: sample-app-web
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+
+      - name: Start localhost with app
+        run: |
+          cd sample-app-web
+          npm install -f
+          npm run start & npx wait-on --timeout 60000 http://localhost:3000
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v5
+        with:
+          distribution: jetbrains
+          java-version: 21
+          cache: maven
+
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Run tests and generate report
+        env:
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+        run: |
+          mvn test
+          mvn allure:report
+        continue-on-error: true
+
+      - name: Publish test results as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: target/allure-report
