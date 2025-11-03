@@ -21,7 +21,15 @@ All tests are independent of each other and can run stand alone or sequentially.
 After the tests are run, an Allure report is created. It can be found in `target/allure-report/index.html`. I decided to use Allure report due to its ease of installation and integration, stability, popularity, and the possibility to generate reports in different formats.
 
 ## CI integration
-The tests also run in CI, when a Pull Request is created, but they can also be triggered manually, on demand, when needed.
+The tests also run in GitHub Actions, when a Pull Request is created, but they can also be triggered manually, on demand, when needed. The workflow is called `run-tests`. 
+The steps that it executes:
+1. Checks out the repo
+2. Checks out the repo where the app is
+3. Installs all the necessary dependencies, such as Node, Java, Chrome
+4. Starts a localhost with the app 
+5. Runs the tests
+6. Generates a report
+7. Publish the report as an artifact in GH Actions
 
 ## Security
 For better security, the sensitive data, such as user's password, is saved in GitHub Actions secrets.
